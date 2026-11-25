@@ -1,6 +1,6 @@
 # unplop
 
-plop2 in reverse. plop2 writes one program per output character; unplop takes examples, learns each character's program, then looks for the one whole algorithm that explains every character (identity, reverse, rotate, a Caesar shift, a constant), so per-character code can be folded back into short readable code. Strings are lists of letter numbers 0..25; examples are Input-Output pairs of equal length.
+plop2 in reverse. plop2 writes one program per output character; unplop takes examples, learns each character's program, then looks for the one whole algorithm that explains every example (each whole algorithm is tried against the examples first, so a letter the examples happen to share cannot hide it) (identity, reverse, rotate, a Caesar shift, a constant), so per-character code can be folded back into short readable code. Strings are lists of letter numbers 0..25; examples are Input-Output pairs of equal length.
 
 ## Use
 
@@ -10,17 +10,19 @@ plop2 in reverse. plop2 writes one program per output character; unplop takes ex
 ?- whole([in(2), in(1), in(0)], 3, W).                   % W = reverse
 ?- unplop([[0,1,2]-[1,2,3], [5,6,7]-[6,7,8]], W).        % W = caesar(1)
 ?- apply_whole(rotate(1), [1,2,3], Out).                 % Out = [2,3,1]
+?- unplop([[1,2]-[1,2], [1,4]-[1,4]], W).                 % W = identity, though both examples start with 1
 ```
 
 ## Proofs
 
-`proofs/theorems.pl` proves 5 theorems by exhaustion: each one is checked for every case in a finite domain that covers every branch of the definitions. every whole algorithm on strings of length 1..3, applied to every string over letters 0..3.
+`proofs/theorems.pl` proves 6 theorems by exhaustion: each one is checked for every case in a finite domain that covers every branch of the definitions. every whole algorithm on strings of length 1..3, applied to every string over letters 0..3.
 
 1. Sound: whatever whole algorithm unplop finds gives every example's output.
 2. Complete: from all examples of a whole algorithm, unplop finds an algorithm that agrees with it everywhere.
 3. Each learned character program gives that character in every example.
 4. A whole algorithm and its per-character programs agree on every input (folding loses nothing).
 5. unplop and apply_whole are steadfast.
+6. A shared letter never hides the algorithm: from any two different examples of an algorithm, unplop finds a whole algorithm that gives both (identity from [1,2]-[1,2] and [1,4]-[1,4], where the first letter alone looks constant).
 
 ```sh
 swipl -g main -t halt proofs/theorems.pl

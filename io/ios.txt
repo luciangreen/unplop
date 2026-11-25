@@ -1,7 +1,7 @@
 unplop: 200 inputs and outputs, from real runs (io/ios.pl has the same as Prolog facts).
 
 1. unplop([[13,20,0,8]-[8,0,20,13],[2,15,0,6]-[6,0,15,2]])
-   => per_char
+   => reverse
 2. per_char([[17,7,18]-[17,0,6],[1,13,19]-[18,18,23]])
    => none
 3. apply_whole(identity, [6,12,10,2,10])
@@ -257,7 +257,7 @@ unplop: 200 inputs and outputs, from real runs (io/ios.pl has the same as Prolog
 128. whole([in(0)], 1)
    => identity
 129. unplop([[13,18]-[13,18],[13,9]-[13,9]])
-   => per_char
+   => identity
 130. per_char([[3,22]-[5,24],[6,18]-[14,0],[10,18]-[14,18]])
    => none
 131. apply_whole(rotate(4), [5,24,10,18,16,10])

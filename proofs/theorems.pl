@@ -36,3 +36,9 @@ theorem(whole_agrees_with_its_characters) :-
 theorem(steadfast) :-
     forall(( between(1, 2, N), algo(N, A), examples(A, N, Exs), member(G, [identity, reverse, caesar(1), none, per_char]) ),
            iff(unplop(Exs, G), ( unplop(Exs, W), W == G ))).
+
+% 6. A shared letter never hides the algorithm: from any two different examples of an
+%    algorithm, unplop finds a whole algorithm (never per_char) that gives both.
+theorem(shared_letters_do_not_hide_the_algorithm) :-
+    forall(( between(1, 3, N), algo(N, A), word(N, X), word(N, Y), X @< Y, apply_whole(A, X, OX), apply_whole(A, Y, OY) ),
+           ( unplop([X-OX, Y-OY], W), W \== per_char, W \== none, apply_whole(W, X, OX), apply_whole(W, Y, OY) )).
