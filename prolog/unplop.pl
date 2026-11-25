@@ -41,7 +41,16 @@ whole_(Ps, _, constant(Cs)) :- maplist([const(C), C]>>true, Ps, Cs).
 numlist0(N, Is) :- N > 0, Top is N - 1, numlist(0, Top, Is).
 
 % unplop(+Examples, -Whole): learn the per-character programs, then fold them into one.
-unplop(Exs, W) :- ( per_char(Exs, Ps) -> Exs = [In-_|_], length(In, N), whole(Ps, N, W) ; W = none ).
+% Each whole algorithm is tried against the examples first, simplest first (so a character that the
+% examples happen to keep constant, such as a shared first letter, cannot hide identity); only if none
+% fits are the simplest per-character programs folded as before.
+unplop(Exs, W) :- ( per_char(Exs, Ps) -> Exs = [In-_|_], length(In, N),
+        ( whole_candidate(N, Exs, W0), forall(member(I-O, Exs), apply_whole(W0, I, O)) -> W = W0 ; whole(Ps, N, W) ) ; W = none ).
+whole_candidate(_, _, identity).
+whole_candidate(_, _, reverse).
+whole_candidate(N, _, rotate(D)) :- N > 1, Top is N - 1, between(1, Top, D).
+whole_candidate(_, _, caesar(D)) :- between(1, 25, D).
+whole_candidate(_, [_-O|_], constant(O)).
 
 % apply_whole(+Whole, +Input, -Output)
 apply_whole(identity, In, Out) :- Out = In.

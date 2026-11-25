@@ -1,5 +1,5 @@
 % 200 recorded inputs and outputs (swipl -g record -t halt io/run.pl writes this; check compares).
-io(1,unplop,[[[13,20,0,8]-[8,0,20,13],[2,15,0,6]-[6,0,15,2]]],per_char).
+io(1,unplop,[[[13,20,0,8]-[8,0,20,13],[2,15,0,6]-[6,0,15,2]]],reverse).
 io(2,per_char,[[[17,7,18]-[17,0,6],[1,13,19]-[18,18,23]]],none).
 io(3,apply_whole,[identity,[6,12,10,2,10]],[6,12,10,2,10]).
 io(4,whole,[[shift(0,2),shift(1,2),shift(1,2)],3],per_char).
@@ -127,7 +127,7 @@ io(125,unplop,[[[1,2,21,21,14]-[13,14,7,7,0],[24,15,16,9,0]-[10,1,2,21,12],[12,2
 io(126,per_char,[[[5]-[5],[10]-[10],[22]-[22]]],[in(0)]).
 io(127,apply_whole,[identity,[14,14,11,5,14,21]],[14,14,11,5,14,21]).
 io(128,whole,[[in(0)],1],identity).
-io(129,unplop,[[[13,18]-[13,18],[13,9]-[13,9]]],per_char).
+io(129,unplop,[[[13,18]-[13,18],[13,9]-[13,9]]],identity).
 io(130,per_char,[[[3,22]-[5,24],[6,18]-[14,0],[10,18]-[14,18]]],none).
 io(131,apply_whole,[rotate(4),[5,24,10,18,16,10]],[16,10,5,24,10,18]).
 io(132,whole,[[shift(0,2),shift(1,2),shift(3,2),shift(2,2)],4],per_char).
